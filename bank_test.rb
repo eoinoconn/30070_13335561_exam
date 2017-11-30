@@ -30,4 +30,7 @@ Account 4 has balance €500\n"
 
     assert_equal(correct_string, string, "Error in bank class")
   end
+
+
+
 end

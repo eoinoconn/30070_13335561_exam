@@ -1,3 +1,6 @@
+# Class to model a bank, stores accounts in hashtables
+# holds array of tellers
+
 require_relative 'account.rb'
 require_relative 'teller.rb'
 
@@ -50,29 +53,10 @@ class Bank
       end
   end
 
-  def process_transaction(teller, transaction)
-    if(transaction[1] > 0)
-      deposit(transaction[0], transaction[1])
-    elsif(transaction[1] < 0)
-      withdraw(transaction[0], transaction[1])
-    end
-    teller.processed_transaction
-  end
-
-  def process_transactions_smartly(transactions)
-    @tellers.sort! { |y, x| x.processing_time <=> y.processing_time}
-    sum_of_process_times = @tellers.inject(0) { |sum, teller| sum += teller.processing_time}
-    max_processing_time = @tellers[0].processing_time
-    processing_fraction = transactions.size/sum_of_process_times
-    @tellers.each do |teller|
-      ((max_processing_time - teller.processing_time + 1)*processing_fraction).times do |x|
-        process_transaction(teller, transactions.pop)
-      end
-    end
-  end
-
-  def process_smart_2 (transactions)
+  # Checks to see if tellers are busy before assigning them a transaction
+  def process_transactions_smartly (transactions)
     time = 0
+    # sort so that most efficient teller goes first
     @tellers.sort! { |x, y| x.processing_time <=> y.processing_time}
     while transactions.size != 0
       @tellers.each do |teller|
@@ -84,13 +68,27 @@ class Bank
     end
   end
 
+  def teller_state
+    str = @tellers.inject("") { |str, teller| str += teller.to_s}
+    # total_time_taken = @tellers.inject(0) { |sum, teller| sum += teller.time_to_process}
+    # str += "Total time taken: #{total_time_taken}"
+  end
+
+  private
+
+  # method for teller to process transaction
+  def process_transaction(teller, transaction)
+    if(transaction[1] > 0)
+      deposit(transaction[0], transaction[1])
+    elsif(transaction[1] < 0)
+      withdraw(transaction[0], transaction[1])
+    end
+    teller.processed_transaction
+  end
+
+  # cehcks if teller is busy at given time
   def not_busy(teller, time)
     teller.time_to_process < time
   end
 
-  def teller_state
-    str = @tellers.inject("") { |str, teller| str += teller.to_s}
-    total_time_taken = @tellers.inject(0) { |sum, teller| sum += teller.time_to_process}
-    str += "Total time taken: #{total_time_taken}"
-  end
 end

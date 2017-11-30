@@ -1,3 +1,4 @@
+# Class to model a banking account
 class Account
   attr_reader :balance
 

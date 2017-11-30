@@ -41,6 +41,8 @@ puts "\nMax account balance in bank is: €#{'%.02f' % max.balance}"
 puts "average account balance in bank is: €#{'%.02f' % average_balance}"
 puts "total amount of funds in bank is: €#{'%.02f' % total_balance}"
 
+puts "\nSilly Bank"
+
 bank_3 = Bank.new
 IO.foreach('accounts.txt') do |line|
   bank_3.add_account(line.to_i)
@@ -60,8 +62,9 @@ bank_3.add_teller(Teller.new("Emma", 2))
 bank_3.add_teller(Teller.new("Paul", 3))
 
 bank_3.process_transactions_randomly(transactions)
-puts "\n"
 puts bank_3.teller_state
+
+puts "\nSmart Bank"
 
 bank_4 = Bank.new
 IO.foreach('accounts.txt') do |line|
@@ -81,5 +84,5 @@ bank_4.add_teller(Teller.new("Jack", 1))
 bank_4.add_teller(Teller.new("Emma", 2))
 bank_4.add_teller(Teller.new("Paul", 3))
 
-bank_4.process_smart_2(transactions)
+bank_4.process_transactions_smartly(transactions)
 puts bank_4.teller_state
