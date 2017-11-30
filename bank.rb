@@ -5,6 +5,8 @@ class Bank
     @accounts = {}
   end
 
+  include Enumerable
+
   def add_account(id)
     @accounts[id] = Account.new(id, 0)
   end

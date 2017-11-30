@@ -14,18 +14,18 @@ bank_2 = Bank.new
 
 
 IO.foreach('accounts.txt') do |line|
-  bank_2.add_account(line)
+  bank_2.add_account(line.to_i)
 end
 
 IO.foreach('transactions.txt') do |line|
   data = line.split
   id = data[0].to_i
+  puts line
   transaction = data[1].to_f
-  if transaction > 0
+  if transaction > 0.0
     bank_2.deposit(id, transaction)
-  elsif transaction < 0
+  elsif transaction < 0.0
     bank_2.withdraw(id, -transaction)
-    puts - transaction
   end
 end
-
+puts bank_2.to_s
