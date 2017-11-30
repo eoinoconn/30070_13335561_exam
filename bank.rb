@@ -44,7 +44,9 @@ class Bank
 
   def process_transactions_randomly(transactions)
     @tellers.shuffle!
-    process_transaction(@tellers[rand(@tellers.size - 1)], transactions.pop)
+    transactions.size.times do
+      process_transaction(@tellers[rand(@tellers.size)], transactions.pop)
+      end
   end
 
   def process_transaction(teller, transaction)
@@ -56,7 +58,19 @@ class Bank
     teller.processed_transaction
   end
 
-  def teller_state
+  def process_transactions_smartly(transactions)
+    @tellers.sort! { |x, y| x.processing_time <=> y.processing_time}
+    sum_of_process_times = @tellers.inject(0) { |sum, teller| sum += teller.processing_time}
+    processing_fraction = transactions.size/sum_of_process_times
+    @tellers.each do |teller|
+      teller.
+    end
 
+  end
+
+  def teller_state
+    str = @tellers.inject("") { |str, teller| str += teller.to_s}
+    total_time_taken = @tellers.inject(0) { |sum, teller| sum += teller.processing_time}
+    str += "Total time taken: #{total_time_taken}"
   end
 end

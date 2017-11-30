@@ -60,3 +60,5 @@ bank_3.add_teller(Teller.new("Emma", 2))
 bank_3.add_teller(Teller.new("Paul", 3))
 
 bank_3.process_transactions_randomly(transactions)
+puts "\n"
+puts bank_3.teller_state

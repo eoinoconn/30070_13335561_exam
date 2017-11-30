@@ -10,7 +10,11 @@ class Teller
     @processed_transactions += 1
   end
 
+  def processing_time
+    @processing_time*@processed_transactions
+  end
+
   def to_s
-    "Teller #{@name} completed #{@processed_transactions} transactions in #{@processing_time*@processed_transactions}"
+    "Teller #{@name} completed #{@processed_transactions} transactions in #{processing_time}\n"
   end
 end
