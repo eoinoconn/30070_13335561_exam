@@ -1,4 +1,6 @@
 class Account
+  attr_reader :balance
+
   def initialize(id, balance)
     @id = id
     @balance = balance
@@ -6,6 +8,10 @@ class Account
 
   def deposit(amount)
     @balance += amount
+  end
+
+  def <=>(other)
+    @balance <=> other.balance
   end
 
   def withdraw(amount)

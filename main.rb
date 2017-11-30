@@ -20,7 +20,6 @@ end
 IO.foreach('transactions.txt') do |line|
   data = line.split
   id = data[0].to_i
-  puts line
   transaction = data[1].to_f
   if transaction > 0.0
     bank_2.deposit(id, transaction)
@@ -28,4 +27,18 @@ IO.foreach('transactions.txt') do |line|
     bank_2.withdraw(id, -transaction)
   end
 end
+
 puts bank_2.to_s
+
+max = bank_2.max
+puts "\nAccount with max balance is:"
+puts max.to_s
+
+total_balance = bank_2.inject(0) { |sum, account| sum += account.balance }
+average_balance = total_balance/bank_2.size
+
+puts "\nAvergae balance"
+puts average_balance
+
+puts "\nTotal money in accounts:"
+puts total_balance

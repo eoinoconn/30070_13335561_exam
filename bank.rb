@@ -7,6 +7,12 @@ class Bank
 
   include Enumerable
 
+  def each
+    @accounts.each do |key, value|
+      yield @accounts[key]
+    end
+  end
+
   def add_account(id)
     @accounts[id] = Account.new(id, 0)
   end
@@ -17,6 +23,10 @@ class Bank
 
   def withdraw(id, amount)
     @accounts[id].withdraw(amount)
+  end
+
+  def size
+    @accounts.size
   end
 
   def to_s
