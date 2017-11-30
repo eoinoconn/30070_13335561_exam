@@ -17,5 +17,15 @@ IO.foreach('accounts.txt') do |line|
   bank_2.add_account(line)
 end
 
-
+IO.foreach('transactions.txt') do |line|
+  data = line.split
+  id = data[0].to_i
+  transaction = data[1].to_f
+  if transaction > 0
+    bank_2.deposit(id, transaction)
+  elsif transaction < 0
+    bank_2.withdraw(id, -transaction)
+    puts - transaction
+  end
+end
 
