@@ -1,4 +1,5 @@
 require_relative 'bank.rb'
+require_relative 'teller.rb'
 
 bank_1 = Bank.new
 
@@ -39,3 +40,23 @@ average_balance = total_balance/bank_2.size
 puts "\nMax account balance in bank is: €#{'%.02f' % max.balance}"
 puts "average account balance in bank is: €#{'%.02f' % average_balance}"
 puts "total amount of funds in bank is: €#{'%.02f' % total_balance}"
+
+bank_3 = Bank.new
+IO.foreach('accounts.txt') do |line|
+  bank_3.add_account(line.to_i)
+end
+
+transactions = []
+
+IO.foreach('transactions.txt') do |line|
+  data = line.split
+  id = data[0].to_i
+  transaction = data[1].to_f
+  transactions.push([id, transaction])
+end
+
+bank_3.add_teller(Teller.new("Jack", 1))
+bank_3.add_teller(Teller.new("Emma", 2))
+bank_3.add_teller(Teller.new("Paul", 3))
+
+bank_3.process_transactions_randomly(transactions)
