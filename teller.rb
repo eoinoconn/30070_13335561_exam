@@ -1,3 +1,4 @@
+#class to model bank teller
 require_relative 'bank'
 
 class Teller
