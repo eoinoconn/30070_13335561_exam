@@ -31,14 +31,11 @@ end
 puts bank_2.to_s
 
 max = bank_2.max
-puts "\nAccount with max balance is:"
-puts max.to_s
+
 
 total_balance = bank_2.inject(0) { |sum, account| sum += account.balance }
 average_balance = total_balance/bank_2.size
 
-puts "\nAvergae balance"
-puts average_balance
-
-puts "\nTotal money in accounts:"
-puts total_balance
+puts "\nMax account balance in bank is: €#{'%.02f' % max.balance}"
+puts "average account balance in bank is: €#{'%.02f' % average_balance}"
+puts "total amount of funds in bank is: €#{'%.02f' % total_balance}"

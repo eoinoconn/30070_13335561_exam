@@ -19,6 +19,6 @@ class Account
   end
 
   def to_s
-    "Account #{@id} has balance €#{@balance}\n"
+    "Account #{@id} has balance €#{'%.02f' % @balance}\n"
   end
 end
