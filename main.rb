@@ -62,3 +62,26 @@ bank_3.add_teller(Teller.new("Paul", 3))
 bank_3.process_transactions_randomly(transactions)
 puts "\n"
 puts bank_3.teller_state
+
+bank_4 = Bank.new
+IO.foreach('accounts.txt') do |line|
+  bank_4.add_account(line.to_i)
+end
+
+transactions = []
+
+IO.foreach('transactions.txt') do |line|
+  data = line.split
+  id = data[0].to_i
+  transaction = data[1].to_f
+  transactions.push([id, transaction])
+end
+
+bank_4.add_teller(Teller.new("Jack", 1))
+bank_4.add_teller(Teller.new("Emma", 2))
+bank_4.add_teller(Teller.new("Paul", 3))
+
+puts transactions[1]
+puts bank_4.process_transactions_smartly(transactions)
+
+puts bank_4.teller_state

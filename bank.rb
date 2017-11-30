@@ -1,4 +1,5 @@
 require_relative 'account.rb'
+require_relative 'teller.rb'
 
 class Bank
   def initialize
@@ -59,18 +60,25 @@ class Bank
   end
 
   def process_transactions_smartly(transactions)
-    @tellers.sort! { |x, y| x.processing_time <=> y.processing_time}
+    @tellers.sort! { |y, x| x.processing_time <=> y.processing_time}
     sum_of_process_times = @tellers.inject(0) { |sum, teller| sum += teller.processing_time}
+    max_processing_time = @tellers[0].processing_time
     processing_fraction = transactions.size/sum_of_process_times
+    previous_tellers_transactions = 0
+    currently_processed = 0
     @tellers.each do |teller|
-      teller.
+      ((max_processing_time - teller.processing_time + 1)*processing_fraction).times do |x|
+        process_transaction(teller, transactions.pop)
+        currently_processed += 1
+      end
+      previous_tellers_transactions += currently_processed
     end
-
+    previous_tellers_transactions
   end
 
   def teller_state
     str = @tellers.inject("") { |str, teller| str += teller.to_s}
-    total_time_taken = @tellers.inject(0) { |sum, teller| sum += teller.processing_time}
+    total_time_taken = @tellers.inject(0) { |sum, teller| sum += teller.time_to_process}
     str += "Total time taken: #{total_time_taken}"
   end
 end

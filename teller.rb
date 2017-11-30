@@ -2,6 +2,8 @@ require_relative 'bank'
 
 class Teller
 
+  attr_reader :processing_time
+
   def initialize name, processing_time
     @name, @processing_time, @processed_transactions = name, processing_time, 0
   end
@@ -10,11 +12,11 @@ class Teller
     @processed_transactions += 1
   end
 
-  def processing_time
+  def time_to_process
     @processing_time*@processed_transactions
   end
 
   def to_s
-    "Teller #{@name} completed #{@processed_transactions} transactions in #{processing_time}\n"
+    "Teller #{@name} completed #{@processed_transactions} transactions in #{time_to_process}\n"
   end
 end
