@@ -64,16 +64,28 @@ class Bank
     sum_of_process_times = @tellers.inject(0) { |sum, teller| sum += teller.processing_time}
     max_processing_time = @tellers[0].processing_time
     processing_fraction = transactions.size/sum_of_process_times
-    previous_tellers_transactions = 0
-    currently_processed = 0
     @tellers.each do |teller|
       ((max_processing_time - teller.processing_time + 1)*processing_fraction).times do |x|
         process_transaction(teller, transactions.pop)
-        currently_processed += 1
       end
-      previous_tellers_transactions += currently_processed
     end
-    previous_tellers_transactions
+  end
+
+  def process_smart_2 (transactions)
+    time = 0
+    @tellers.sort! { |x, y| x.processing_time <=> y.processing_time}
+    while transactions.size != 0
+      @tellers.each do |teller|
+        if not_busy(teller, time)
+          process_transaction(teller, transactions.pop)
+        end
+      end
+      time += 1
+    end
+  end
+
+  def not_busy(teller, time)
+    teller.time_to_process < time
   end
 
   def teller_state

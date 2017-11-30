@@ -81,7 +81,5 @@ bank_4.add_teller(Teller.new("Jack", 1))
 bank_4.add_teller(Teller.new("Emma", 2))
 bank_4.add_teller(Teller.new("Paul", 3))
 
-puts transactions[1]
-puts bank_4.process_transactions_smartly(transactions)
-
+bank_4.process_smart_2(transactions)
 puts bank_4.teller_state
