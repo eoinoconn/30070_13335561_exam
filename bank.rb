@@ -18,6 +18,10 @@ class Bank
   end
 
   def to_s
-    @accounts.each &:to_s
+    str = ""
+    @accounts.each do |key, value|
+      str += @accounts[key].to_s
+    end
+    str
   end
 end
